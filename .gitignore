@@ -1,0 +1,5 @@
+.DS_Store
+project/build/
+project/credentials/*
+!project/credentials/note.txt
+sdkconfig.old

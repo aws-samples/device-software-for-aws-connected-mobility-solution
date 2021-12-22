@@ -1,0 +1,153 @@
+menu "Example Configuration"
+
+config MQTT_CLIENT_IDENTIFIER
+    string "The MQTT client identifier used in this example"
+	default "testClient"
+	help
+        The MQTT client identifier used in this example. Each client identifier must be unique.
+        so edit as required to ensure that no two clients connecting to the same broker use the same client identifier.
+
+config MQTT_BROKER_ENDPOINT
+    string "Endpoint of the MQTT broker to connect to"
+    default "test.mosquitto.org"
+    help
+        This example can be run with any MQTT broker, that supports server authentication.
+
+config MQTT_BROKER_PORT
+    int "Port of the MQTT broker use"
+    default 8884
+    help
+        In general, port 8883 is for secured MQTT connections.
+        Port 443 requires use of the ALPN TLS extension with the ALPN protocol name.
+        When using port 8883, ALPN is not required.
+
+config MQTT_OPTION_SNI
+    int "An option to disable Server Name Indication"
+    range 0 1
+    default 0
+    help
+        When using a local Mosquitto server setup, SNI needs to be disabled
+        for an MQTT broker that only has an IP address but no hostname. However,
+        SNI should be enabled whenever possible.
+
+config HARDWARE_PLATFORM_NAME
+    string "The hardware platform"
+    default "ESP32"
+    help
+        The name of the hardware platform the application is running on.
+
+config MQTT_EXAMPLE_STACKSIZE
+    int "Set the stack size of the example task"
+    range 5120 8192
+    default 5120
+    help
+        The actual stack is created by an operating system thread.
+
+config MQTT_NETWORK_BUFFER_SIZE
+    int "Size of the network buffer for MQTT packets"
+    range 1024 2048
+    default 1024
+    help
+        Size of the network buffer for MQTT packets.
+
+config RTSP_STREAMING_URL
+    string "RTSP server URL"
+    default "rtsp://192.168.8.210:5554/playlist.m3u"
+    help
+        The mobile phone plays a RTSP server role, and it would provide a URL to indicate the RTSP resource.
+
+config KVS_STREAM_NAME
+    string "KVS Stream Name"
+    default "testStream"
+    help
+        The KVS stream name is an identity which can be used for uploading video or play video from.
+
+endmenu
+
+menu "Connected mobility demo config"
+    
+    config APP_DOWNLOAD_AGENT
+        bool "Enable download agent in the demo application"
+        default y
+        help
+            If not enabled. Only default APP will run.
+    
+    config APP_WASM
+        bool "Enable WASM in the demo application"
+        default y
+        help
+            If not enabled, APP_WASM won't start any application.
+    
+    config APP_KVS
+        bool "Enable KVS in the demo application"
+        default y
+        help
+            If not enabled, APP_KVS won't start any application.
+
+    config APP_PUSH_TO_TALK
+        bool "Enable PUSH_TO_TALK in the demo application"
+        default y
+        help
+            If not enabled, APP_PUSH_TO_TALK won't start any application.
+
+    config FREEMATICS_ONEPLUS_B
+        bool "Build FREEMATICS_ONEPLUS_B in the demo application"
+        default y
+        help
+            If not enabled, build devkitC or Wrover pin configuration.
+
+    config FILE_SYSTEM_ENABLE
+        bool "Enable FILE_SYSTEM_ENABLE in the demo application"
+        default y
+        help
+            If not enabled, use RAM instead of file system
+
+    config FS_MOUNT_POINT
+        string "file system default mount point"
+        default "/sdcard"
+        depends on FILE_SYSTEM_ENABLE
+        help
+            The default file system mount point
+
+    config EXAMPLE_FORMAT_IF_MOUNT_FAILED
+        bool "Enable EXAMPLE_FORMAT_IF_MOUNT_FAILED in the demo application"
+        default y
+        depends on FILE_SYSTEM_ENABLE
+        help
+            If not enabled, format the SD card when mount failed
+    
+    choice DEFAULT_APP
+        prompt "Default APP"
+        default DEFAULT_APP_WASM
+
+        config DEFAULT_APP_WASM
+            bool "Default APP WASM"
+            depends on APP_WASM
+            help
+                "Default APP_WASM"
+
+        config DEFAULT_APP_KVS
+            bool "Default APP_KVS"
+            depends on APP_KVS
+            help
+                "Default APP_KVS"
+        
+        config DEFAULT_APP_PUSH_TO_TALK
+            bool "Default APP_PUSH_TO_TALK"
+            depends on APP_PUSH_TO_TALK
+            help
+                "Default APP_PUSH_TO_TALK"
+
+        config DEFAULT_APP_NONE
+            bool "Default APP_NONE"
+            help
+                "Default APP_NONE"
+    endchoice
+
+config CMS_VIN
+    string "cms VIN"
+    default "iotlabtpetest"
+    help
+        This is the VIN for demo car
+
+endmenu

@@ -1,0 +1,9 @@
+[submodule "components/coreMQTT-Agent/coreMQTT-Agent"]
+	path = components/coreMQTT-Agent/coreMQTT-Agent
+	url = git@github.com:FreeRTOS/coreMQTT-Agent.git
+[submodule "components/download-Agent/aws-iot-mqtt-download-agent"]
+	path = components/download-Agent/aws-iot-mqtt-download-agent
+	url = git@github.com:aws-samples/aws-iot-mqtt-download-agent.git
+[submodule "components/backoffAlgorithm/backoffAlgorithm"]
+	path = components/backoffAlgorithm/backoffAlgorithm
+	url = git@github.com:FreeRTOS/backoffAlgorithm.git
